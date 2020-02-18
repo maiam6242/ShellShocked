@@ -25,7 +25,7 @@ https://www.geeksforgeeks.org/making-linux-shell-c/
 
 We have outlined three major tasks for this week: 
 
-1. Find a convienient time to meet outside of class  
+1. Find a convenient time to meet outside of class  
     * Definition of Done: Have a set meeting time on both of our calendars (iCal encouraged, but not necessary!)
 2. Review resources and tutorials to get a better sense of how to create a shell  
     * Definition of Done: Have a solid understanding of how to begin designing and creating our project and the basic funtionality of the shell
