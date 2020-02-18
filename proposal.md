@@ -4,7 +4,7 @@
 
 ### Project Goals
 
-Through this project, we would like to learn how to create a simple, functional UNIX shell in C. As for the minimum viable product, we vision our shell to run 5 basic commands: *cd*, *ls*, *mkdir*, *rm*, and *man*. By the end of working on this project, we want to have a good understanding of how shells work. 
+Through this project, we would like to learn how to create a simple, functional UNIX shell in C. As for the minimum viable product, we vision our shell to run 5 basic commands: **cd**, **ls**, **mkdir**, **rm**, and **man**. By the end of working on this project, we want to have a good understanding of how shells work. 
 
 If we go beyond our minimum viable product, we would like to implement more commands and deal more with the edge cases and options associated with each command we have created. We also would like to try to implement a text editor as a major stretch goal.
 ### Learning Goals
@@ -29,9 +29,9 @@ We have outlined three major tasks for this week:
     * Definition of Done: Have a set meeting time on both of our calendars (iCal encouraged, but not necessary!)
 2. Review resources and tutorials to get a better sense of how to create a shell  
     * Definition of Done: Have a solid understanding of how to begin designing and creating our project and the basic functionality of the shell
-3. Pair program to create the *ls* command  
+3. Pair program to create the **ls** command  
     * Definition of Done: Show that it is able to execute the command on the shell
-4. Begin working on the *cd* command  
+4. Begin working on the **cd** command  
     * Definition of Done: Minimum demonstration could include pseudocode
     
 For all the next steps mentioned above, both teammates will be working together on the tasks. 
