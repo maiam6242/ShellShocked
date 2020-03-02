@@ -1,6 +1,9 @@
 // HK and Maia
 #include <unistd.h>
 #include <stdio.h>
+
+#define LSH_TOK_BUFSIZE 64
+#define LSH_TOK_DELIM " \t\r\n\a"
 void main(){
     // Should initialize the shell and read, parse and execute for each functionality we hope to include
 }
@@ -26,9 +29,81 @@ char** parseInput() {
     /*
     Check the input against the command in the command table and any options
     */
+
+
 }
+char **lsh_split_line(char *line)
+{
+  int bufsize = LSH_TOK_BUFSIZE, position = 0;
+  char **tokens = malloc(bufsize * sizeof(char*));
+  char *token;
+
+  if (!tokens) {
+    fprintf(stderr, "lsh: allocation error\n");
+    exit(1);
+  }
+
+  token = strtok(line, "|");
+  while (token != NULL) {
+    tokens[position] = token;
+    position++;
+
+    if (position >= bufsize) {
+      bufsize += LSH_TOK_BUFSIZE;
+      tokens = realloc(tokens, bufsize * sizeof(char*));
+      if (!tokens) {
+        fprintf(stderr, "lsh: allocation error\n");
+        exit(1);
+      }
+    }
+
+    token = strtok(NULL, LSH_TOK_DELIM);
+  }
+  tokens[position] = NULL;
+  for(int i = 0; i < sizeof tokens / sizeof tokens[0]; i++){
+      printf("%s\n", tokens[i]);
+  }
+  return tokens;
+}
+
+char **lsh_split_line(char *line)
+{
+  int bufsize = LSH_TOK_BUFSIZE, position = 0;
+  char **tokens = malloc(bufsize * sizeof(char*));
+  char *token;
+
+  if (!tokens) {
+    fprintf(stderr, "lsh: allocation error\n");
+    exit(1);
+  }
+
+  token = strtok(line, LSH_TOK_DELIM);
+  while (token != NULL) {
+    tokens[position] = token;
+    position++;
+
+    if (position >= bufsize) {
+      bufsize += LSH_TOK_BUFSIZE;
+      tokens = realloc(tokens, bufsize * sizeof(char*));
+      if (!tokens) {
+        fprintf(stderr, "lsh: allocation error\n");
+        exit(1);
+      }
+    }
+
+    token = strtok(NULL, LSH_TOK_DELIM);
+  }
+  tokens[position] = NULL;
+  return tokens;
+}
+
 
 struct Command {
     // 
 }Command;
 
+int main(){
+    char** ln = "yoo | how's it | hangin?";
+    lsh_split_line(ln);
+    printf("hey, are we tech bros or what? ");
+}
