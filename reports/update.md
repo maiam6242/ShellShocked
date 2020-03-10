@@ -44,4 +44,5 @@ For all the next steps mentioned above, both teammates will be working together 
 
 ### GitHub and Trello
 GitHub: https://github.com/maiam6242/ShellShocked
+
 Trello: https://trello.com/b/qbu0BTlw/hk-and-maia 
