@@ -8,9 +8,10 @@
 #define LSH_TOK_BUFSIZE 64
 // delimiter: tab, carriage return, end of line, system bell
 #define LSH_TOK_DELIM " \t\r\n\a"
-void main(){
+
+// void main(){
     // Should initialize the shell and read, parse and execute for each functionality we hope to include
-}
+// }
 
 int changeDirectory(char* args[]){
     /* 
@@ -75,23 +76,24 @@ char* readInput(){
     int ch = 0; // getchar() returns an ASCII value
     char *buffer = malloc(sizeof(char) * buffer_size);
 
-    while(1):
-      ch = getchar();
-      
-      // when reach the end of input
-      if (ch == EOF || ch == '\n') {
-        buffer[location] = '\0';
-        return buffer;
-      } else {
-        buffer[location] = ch;
-      }
-      location++;
-      
-      // when input goes over allocated buffer
-      if (location >= buffer_size) {
-        buffer_size += LSH_TOK_BUFSIZE;
-        buffer = realloc(buffer, buffer_size);
-      }
+    while(1) {
+        ch = getchar();
+        
+        // when reach the end of input
+        if (ch == EOF || ch == '\n') {
+          buffer[location] = '\0';
+          return buffer;
+        } else {
+          buffer[location] = ch;
+        }
+        location++;
+        
+        // when input goes over allocated buffer
+        if (location >= buffer_size) {
+          buffer_size += LSH_TOK_BUFSIZE;
+          buffer = realloc(buffer, buffer_size);
+        }
+    }
 }
 
 char** parseInput() {
@@ -178,9 +180,9 @@ struct Command {
 }Command;
 
 int main(){
-    char *input = readInput();
-    printf("%s", input);
-    // char** ln = "yoo | how's it | hangin?";
-    // lsh_split_line(ln);
+    // char *input = readInput();
+    // printf("%s", input);
+    char** ln = "yoo | how's it | hangin?";
+    lsh_split_line(ln);
     printf("hey, are we tech bros or what? ");
 }
