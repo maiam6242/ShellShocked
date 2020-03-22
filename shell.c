@@ -131,6 +131,7 @@ Split given line into tokens with delimiter '|'
       }
     }
 
+    printf("token: %s \n", token);
     token = strtok(NULL, LSH_TOK_DELIM);
   }
   tokens[position] = NULL;
@@ -168,9 +169,11 @@ Split given line into tokens with delimiters LSH_TOK_DELIM
       }
     }
 
+    printf("token: %s \n", token);
     token = strtok(NULL, LSH_TOK_DELIM);
   }
   tokens[position] = NULL;
+  printf("tokens: %s \n", *tokens);
   return tokens;
 }
 
@@ -182,7 +185,10 @@ struct Command {
 int main(){
     // char *input = readInput();
     // printf("%s", input);
-    char** ln = "yoo | how's it | hangin?";
+    // char** ln[] = "yoo | how's it | hangin?";
+    char ln[] = "yoo | how's it | hangin?";
     lsh_split_line(ln);
-    printf("hey, are we tech bros or what? ");
+    printf("-----------\n");
+    lsh_split_at_pipe(ln);
+    printf("hey, are we tech bros or what? \n");
 }
