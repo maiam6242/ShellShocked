@@ -132,7 +132,7 @@ Split given line into tokens with delimiter '|'
     }
 
     printf("token: %s \n", token);
-    token = strtok(NULL, LSH_TOK_DELIM);
+    token = strtok(NULL, "|");
   }
   tokens[position] = NULL;
   for(int i = 0; i < sizeof tokens / sizeof tokens[0]; i++){
@@ -187,8 +187,8 @@ int main(){
     // printf("%s", input);
     // char** ln[] = "yoo | how's it | hangin?";
     char ln[] = "yoo | how's it | hangin?";
-    lsh_split_line(ln);
-    printf("-----------\n");
+    // lsh_split_line(ln);
+    // printf("-----------\n");
     lsh_split_at_pipe(ln);
     printf("hey, are we tech bros or what? \n");
 }
