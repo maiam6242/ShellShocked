@@ -69,14 +69,14 @@ int listFiles(){
   return 0;
 }
 
-int makeDirectory(char* args[]){
+int makeDirectory(char* arg){
   /*
   Make a directory with the name given as an arg, if no name given or other error present, return -1, else return 0
   */
 
-  int failed = mkdir(args[0]);
+  int failed = mkdir(arg);
 
-  if(!failed){
+  if(mkdir(arg, 0777) == -1){
     printf("Worked!");
     return 0;
   }
@@ -258,10 +258,26 @@ int main(){
     // cmd_handler(input); // handle the command (input gives the first token which is the command)
 
     char* path = "/home";
-    listFiles();
+
+    printf("--------PRINTDIR-------\n"); 
     printDirectory();
-    // char** path = "~/"; 
-    changeDirectory(path);
+    printf("--------PRINTDIR-------\n"); 
+    // char** path = "~/";
+
+    printf("--------LISTFILES-------\n"); 
+    listFiles();
+    printf("--------LISTFILES-------\n"); 
+
+
+    //// TEST FOR CD ///// seems like its working?
+    // changeDirectory(path);
+    // printDirectory();
+    // listFiles();
+
+    //// TEST FOR MKDIR ////
+    char* new_dir = "test_shell";
+    makeDirectory(new_dir);
+    listFiles();
     // lsh_split_at_pipe(input);
     // printf("%s", input);
     // char ln[] = "yoo | how's it | hangin?";
