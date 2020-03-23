@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 
 #define LSH_TOK_BUFSIZE 64
@@ -44,9 +45,23 @@ void printDirectory(){
 
 int listFiles(char* args[]){
   /*
-  This should list all of the files in the current 
-
+  This should list all of the files in the current directory
   */
+  
+  DIR * d = opendir(args[1]);
+  struct dirent *dir;
+  if (d == NULL) {
+    d = opendir(".");
+  }
+
+  if (d) {
+    while(dir = readdir(d) != NULL)
+    {
+      printf("%s\n", dir -> d_name);
+    }
+    closedir(d);
+  }
+  return 0;
 }
 
 int makeDirectory(char* args[]){
@@ -183,6 +198,7 @@ struct Command {
 }Command;
 
 int main(){
+  // Should initialize the shell and read, parse and execute for each functionality we hope to include
     // char *input = readInput();
     // printf("%s", input);
     // char** ln[] = "yoo | how's it | hangin?";
