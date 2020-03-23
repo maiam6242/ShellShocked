@@ -170,26 +170,34 @@ Split given line into tokens with delimiters LSH_TOK_DELIM
     exit(1);
   }
 
-  token = strtok(line, LSH_TOK_DELIM);
-  while (token != NULL) {
-    tokens[position] = token;
-    position++;
-
-    if (position >= bufsize) {
-      bufsize += LSH_TOK_BUFSIZE;
-      tokens = realloc(tokens, bufsize * sizeof(char*));
-      if (!tokens) {
-        fprintf(stderr, "lsh: allocation error\n");
-        exit(1);
-      }
-    }
-
-    printf("token: %s \n", token);
-    token = strtok(NULL, LSH_TOK_DELIM);
+  // if there is a pipe in the input call the lsh_split_pipe
+  if (strchr(line, '|') != NULL) {
+    lsh_split_at_pipe(line);
   }
-  tokens[position] = NULL;
-  printf("tokens: %s \n", *tokens);
-  return tokens;
+  
+  // if no pipes were found, just split by delimiters
+  else {
+    token = strtok(line, LSH_TOK_DELIM);
+    while (token != NULL) {
+      tokens[position] = token;
+      position++;
+
+      if (position >= bufsize) {
+        bufsize += LSH_TOK_BUFSIZE;
+        tokens = realloc(tokens, bufsize * sizeof(char*));
+        if (!tokens) {
+          fprintf(stderr, "lsh: allocation error\n");
+          exit(1);
+        }
+      }
+
+      printf("token: %s \n", token);
+      token = strtok(NULL, LSH_TOK_DELIM);
+    }
+    tokens[position] = NULL;
+    printf("tokens: %s \n", *tokens);
+    return tokens;
+  }
 }
 
 
@@ -199,20 +207,11 @@ struct Command {
 
 int main(){
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
-    // char *input = readInput();
+    char *input = readInput();
     // lsh_split_at_pipe(input);
     // printf("%s", input);
-    char ln[] = "yoo | how's it | hangin?";
-    char a = '|';
-    char *ret;
-    ret = strchr(ln, a);
-    printf("result: %s\n", ret);
-    if (strchr(ln, a) != NULL) {
-      printf("yes\n");
-    } else {
-      printf("no\n");
-    }
+    // char ln[] = "yoo | how's it | hangin?";
     // lsh_split_at_pipe(input);
-    // lsh_split_line(ln);
+    lsh_split_line(input);
     printf("hey, are we tech bros or what? \n");
 }
