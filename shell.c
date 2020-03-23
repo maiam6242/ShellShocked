@@ -15,22 +15,24 @@
     // Should initialize the shell and read, parse and execute for each functionality we hope to include
 // }
 
-int changeDirectory(char* args[]){
+int changeDirectory(char* arg){
     /* 
     Should move to home if no argument, if directory exists, go to that directory, else output an error. Use chdir to change directories
     Args: either the directory that should be changed to or blank for home
     Returns: 0 if successful, -1 if not 
     */
-    if(args == NULL){
+    if(arg == NULL){
       perror("Args are null! Can't change directory");
       return -1;
     }
-    else if (chdir(args[1])!= 0){
+    else if (chdir(arg)!= 0){
       perror("Sorry some sort of error with cd");
       return -1;
     }
     else 
-      return chdir(args[1]);
+      printf("%s \n", arg);
+      chdir(arg);
+      return 0;
 
     // Check if we need to handle cases dealing with implicit vs absolute path
 }
@@ -41,27 +43,29 @@ void printDirectory(){
     */
     char cwd[1024]; 
     getcwd(cwd, sizeof(cwd)); 
-    printf("\nDir: %s", cwd);
+    printf("\nDir: %s \n", cwd);
 }
 
-int listFiles(char* args[]){
+int listFiles(){
   /*
   This should list all of the files in the current directory
   */
-  
-  DIR * d = opendir(args[1]);
+ 
+  DIR * d = opendir(".");
   struct dirent *dir;
   if (d == NULL) {
-    d = opendir(".");
+    return -1;
+    // d = opendir(".");
   }
 
-  if (d) {
-    while(dir = readdir(d) != NULL)
+  // if (d) {
+    
+    while(dir = readdir(d))
     {
       printf("%s\n", dir -> d_name);
     }
     closedir(d);
-  }
+  // }
   return 0;
 }
 
@@ -230,6 +234,8 @@ int cmd_handler(char *cmd) {
       break;
     case 3:
       // ls
+      printf("pwd");
+      // listFiles();
     case 4:
       // mkdir
     case 5:
@@ -247,10 +253,15 @@ struct Command {
 
 int main(){
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
-    char *input = readInput();
-    lsh_split_line(input);
-    cmd_handler(input); // handle the command (input gives the first token which is the command)
+    // char *input = readInput();
+    // lsh_split_line(input);
+    // cmd_handler(input); // handle the command (input gives the first token which is the command)
 
+    char* path = "/home";
+    listFiles();
+    printDirectory();
+    // char** path = "~/"; 
+    changeDirectory(path);
     // lsh_split_at_pipe(input);
     // printf("%s", input);
     // char ln[] = "yoo | how's it | hangin?";
