@@ -9,6 +9,7 @@
 #define LSH_TOK_BUFSIZE 64
 // delimiter: tab, carriage return, end of line, system bell
 #define LSH_TOK_DELIM " \t\r\n\a"
+#define NUM_COMMANDS 6
 
 // void main(){
     // Should initialize the shell and read, parse and execute for each functionality we hope to include
@@ -200,6 +201,45 @@ Split given line into tokens with delimiters LSH_TOK_DELIM
   }
 }
 
+int cmd_handler(char *cmd) {
+  char *command_list[NUM_COMMANDS];
+  int switch_arg = 0, i;
+
+  command_list[0] = "cd";
+  command_list[1] = "pwd";
+  command_list[2] = "ls";
+  command_list[3] = "mkdir";
+  command_list[4] = "rm";
+  command_list[5] = "man";
+
+  // find which command in command_list cmd equals to
+  for (i = 0 ;i < NUM_COMMANDS; i++) {
+    if (strcmp(cmd, command_list[i]) == 0) {
+      switch_arg = i + 1;
+    }
+  }
+
+  switch (switch_arg) {
+    case 1:
+      // cd
+      printf("cd");
+      break;
+    case 2:
+      // pwd
+      printf("pwd");
+      break;
+    case 3:
+      // ls
+    case 4:
+      // mkdir
+    case 5:
+      // rm
+    case 6:
+      // man
+      printf("man");
+      break;
+  }
+}
 
 struct Command {
     // 
@@ -208,10 +248,12 @@ struct Command {
 int main(){
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
     char *input = readInput();
+    lsh_split_line(input);
+    cmd_handler(input); // handle the command (input gives the first token which is the command)
+
     // lsh_split_at_pipe(input);
     // printf("%s", input);
     // char ln[] = "yoo | how's it | hangin?";
     // lsh_split_at_pipe(input);
-    lsh_split_line(input);
     printf("hey, are we tech bros or what? \n");
 }
