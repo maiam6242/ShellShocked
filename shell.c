@@ -200,11 +200,19 @@ struct Command {
 int main(){
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
     // char *input = readInput();
+    // lsh_split_at_pipe(input);
     // printf("%s", input);
-    // char** ln[] = "yoo | how's it | hangin?";
     char ln[] = "yoo | how's it | hangin?";
+    char a = '|';
+    char *ret;
+    ret = strchr(ln, a);
+    printf("result: %s\n", ret);
+    if (strchr(ln, a) != NULL) {
+      printf("yes\n");
+    } else {
+      printf("no\n");
+    }
+    // lsh_split_at_pipe(input);
     // lsh_split_line(ln);
-    // printf("-----------\n");
-    lsh_split_at_pipe(ln);
     printf("hey, are we tech bros or what? \n");
 }
