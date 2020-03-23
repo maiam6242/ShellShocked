@@ -85,6 +85,73 @@ int makeDirectory(char* arg){
     return -1;
 }
 
+int removeObjects(char* arg){
+  /*
+  Should remove objects that are passed in
+  */
+  if (remove(arg) == 0 || rmdir(arg)) {
+    printf("deleted successfully");
+  }
+  else {
+    printf("failure to delete");
+  }
+  
+}
+
+int man(char* arg){
+   /*
+   Displays fun information about us for each command!
+   */
+  char *command_list[NUM_COMMANDS];
+  int switch_arg = 0, i;
+
+  command_list[0] = "cd";
+  command_list[1] = "pwd";
+  command_list[2] = "ls";
+  command_list[3] = "mkdir";
+  command_list[4] = "rm";
+  command_list[5] = "man";
+ 
+  // find which command in command_list cmd equals to
+  for (i = 0 ;i < NUM_COMMANDS; i++) {
+    if (strcmp(arg, command_list[i]) == 0) {
+      switch_arg = i + 1;
+    }
+  }
+  
+  switch (switch_arg) {
+    case 1: 
+      // cd
+      printf(" blahblahblahblahblha \n");
+      break;
+    case 2:
+      // pwd
+      printf(" \n");
+      break;
+    case 3:
+      // ls
+      printf(" \n");
+      break;
+    case 4:
+      // mkdir
+      printf("Hello Allen B Downey! Fancy meeting you here! \n If you are not Allen B Downey, still welcome! We like just the same (maybe...) ha! jkjk... unless... 🔥🔥🔥 \n");
+      printf("─▄██▄██▄\n");
+      printf("─▀█████▀\n");
+      printf("───▀█▀\n");
+      printf("");
+      printf("");
+      break;
+    case 5:
+      // rm
+      printf(" \n");
+      break;
+    case 6:
+      // man
+      printf("");
+      break;
+  }
+
+}
 
 char* readInput(){
     /*
@@ -123,11 +190,11 @@ char** parseInput() {
 
 
 }
-char **lsh_split_at_pipe(char *line)
-/*
-Split given line into tokens with delimiter '|' 
-*/
-{
+char **lsh_split_at_pipe(char *line) {
+  /*
+  Split given line into tokens with delimiter '|' 
+  */
+
   int bufsize = LSH_TOK_BUFSIZE, position = 0;
   char **tokens = malloc(bufsize * sizeof(char*));
   char *token;
@@ -161,11 +228,11 @@ Split given line into tokens with delimiter '|'
   return tokens;
 }
 
-char **lsh_split_line(char *line)
-/* 
-Split given line into tokens with delimiters LSH_TOK_DELIM
-*/
-{
+char **lsh_split_line(char *line) {
+  /* 
+  Split given line into tokens with delimiters LSH_TOK_DELIM
+  */
+
   int bufsize = LSH_TOK_BUFSIZE, position = 0;
   char **tokens = malloc(bufsize * sizeof(char*));
   char *token;
@@ -200,12 +267,14 @@ Split given line into tokens with delimiters LSH_TOK_DELIM
       token = strtok(NULL, LSH_TOK_DELIM);
     }
     tokens[position] = NULL;
-    printf("tokens: %s \n", *tokens);
+    for (int i = 0; i < position; i++){
+        printf("tokens: %s \n", tokens[i]);
+    }
     return tokens;
   }
 }
 
-int cmd_handler(char *cmd) {
+int cmd_handler(char **input) {
   char *command_list[NUM_COMMANDS];
   int switch_arg = 0, i;
 
@@ -218,7 +287,7 @@ int cmd_handler(char *cmd) {
 
   // find which command in command_list cmd equals to
   for (i = 0 ;i < NUM_COMMANDS; i++) {
-    if (strcmp(cmd, command_list[i]) == 0) {
+    if (strcmp(input[0], command_list[i]) == 0) {
       switch_arg = i + 1;
     }
   }
@@ -226,23 +295,33 @@ int cmd_handler(char *cmd) {
   switch (switch_arg) {
     case 1:
       // cd
-      printf("cd");
+      changeDirectory(input[1]); // need second argument here the function parameter has to be changed?
+      printf("cd \n");
       break;
     case 2:
       // pwd
-      printf("pwd");
+      printDirectory();
+      printf("pwd \n");
       break;
     case 3:
       // ls
-      printf("pwd");
-      // listFiles();
+      listFiles();
+      printf("ls \n");
+      break;
     case 4:
       // mkdir
+      makeDirectory(input[1]);
+      printf("mkdir \n");
+      break;
     case 5:
       // rm
+      removeObjects(input[1]);
+      printf("rm \n");
+      break;
     case 6:
       // man
-      printf("man");
+      man(input[1]);
+      printf("man \n");
       break;
   }
 }
@@ -253,20 +332,24 @@ struct Command {
 
 int main(){
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
-    // char *input = readInput();
-    // lsh_split_line(input);
-    // cmd_handler(input); // handle the command (input gives the first token which is the command)
+    for (int i = 0; i<4; i++) {
+      char *input = readInput();
+      char **out = lsh_split_line(input);
+      printf("INPUT: %s \n", *out);
+      printf("INPUT: %s \n", out[1]);
+      cmd_handler(out); // handle the command (input gives the first token which is the command)
+    }
 
-    char* path = "/home";
 
-    printf("--------PRINTDIR-------\n"); 
-    printDirectory();
-    printf("--------PRINTDIR-------\n"); 
-    // char** path = "~/";
+    // char* path = "/home";
+    // printf("--------PRINTDIR-------\n"); 
+    // printDirectory();
+    // printf("--------PRINTDIR-------\n"); 
+    // // char** path = "~/";
 
-    printf("--------LISTFILES-------\n"); 
-    listFiles();
-    printf("--------LISTFILES-------\n"); 
+    // printf("--------LISTFILES-------\n"); 
+    // listFiles();
+    // printf("--------LISTFILES-------\n"); 
 
 
     //// TEST FOR CD ///// seems like its working?
@@ -275,9 +358,10 @@ int main(){
     // listFiles();
 
     //// TEST FOR MKDIR ////
-    char* new_dir = "test_shell";
-    makeDirectory(new_dir);
-    listFiles();
+    // char* new_dir = "test_shell";
+    // makeDirectory(new_dir);
+    // listFiles();
+    
     // lsh_split_at_pipe(input);
     // printf("%s", input);
     // char ln[] = "yoo | how's it | hangin?";
