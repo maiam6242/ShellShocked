@@ -168,7 +168,11 @@ char* readInput(){
         ch = getchar();
         
         // when reach the end of input
-        if (ch == EOF || ch == '\n') {
+        if(ch == EOF){
+          printf("End Of File Character Pressed. Terminating shell.\n");
+          exit(1);
+        }
+        else if (ch == '\n') {
           buffer[location] = '\0';
           return buffer;
         } else {
@@ -331,16 +335,9 @@ struct Command {
     // 
 }Command;
 
-static volatile sig_atomic_t keep_running = 1;
-
-static void sig_handler(int _)
-{
-    (void)_;
-    keep_running = 0;
-}
-
 
 int main(){
+  int keep_running = 1;
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
     // for (int i = 0; i<4; i++) {
     //   char *input = readInput();
@@ -349,15 +346,13 @@ int main(){
     //   printf("INPUT: %s \n", out[1]);
     //   cmd_handler(out); // handle the command (input gives the first token which is the command)
 
-
-    signal(SIGINT, sig_handler);
-
     while (keep_running) {
       char *input = readInput();
       char **out = lsh_split_line(input);
       // printf("INPUT: %s \n", *out);
       // printf("INPUT: %s \n", out[1]);
       cmd_handler(out); // handle the command (input gives the first token which is the command)
+    
     }
 
     puts("Stopped by signal `SIGINT'");
