@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include <dirent.h>
 
 
@@ -330,15 +331,38 @@ struct Command {
     // 
 }Command;
 
+static volatile sig_atomic_t keep_running = 1;
+
+static void sig_handler(int _)
+{
+    (void)_;
+    keep_running = 0;
+}
+
+
 int main(){
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
-    for (int i = 0; i<4; i++) {
+    // for (int i = 0; i<4; i++) {
+    //   char *input = readInput();
+    //   char **out = lsh_split_line(input);
+    //   printf("INPUT: %s \n", *out);
+    //   printf("INPUT: %s \n", out[1]);
+    //   cmd_handler(out); // handle the command (input gives the first token which is the command)
+
+
+    signal(SIGINT, sig_handler);
+
+    while (keep_running) {
       char *input = readInput();
       char **out = lsh_split_line(input);
-      printf("INPUT: %s \n", *out);
-      printf("INPUT: %s \n", out[1]);
+      // printf("INPUT: %s \n", *out);
+      // printf("INPUT: %s \n", out[1]);
       cmd_handler(out); // handle the command (input gives the first token which is the command)
     }
+
+    puts("Stopped by signal `SIGINT'");
+    return EXIT_SUCCESS;
+    
 
 
     // char* path = "/home";
@@ -366,5 +390,4 @@ int main(){
     // printf("%s", input);
     // char ln[] = "yoo | how's it | hangin?";
     // lsh_split_at_pipe(input);
-    printf("hey, are we tech bros or what? \n");
 }
