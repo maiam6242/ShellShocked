@@ -1,4 +1,12 @@
-// HK and Maia
+/* 
+  Software Systems Mini-Project 1 
+  
+  Shell that can execute six commands: cd, pwd, ls, mkdir, rm, and man.
+
+  Team: Maia and HK
+  Professor: Allen Downey
+*/
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +18,14 @@
 #define LSH_TOK_BUFSIZE 64
 #define LSH_TOK_DELIM " \t\r\n\a" // delimiter: tab, carriage return, end of line, system bell
 #define NUM_COMMANDS 6
+
+char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
+command_list[0] = "cd";
+command_list[1] = "pwd";
+command_list[2] = "ls";
+command_list[3] = "mkdir";
+command_list[4] = "rm";
+command_list[5] = "man";
 
 
 int changeDirectory(char* arg){
@@ -36,6 +52,7 @@ int changeDirectory(char* arg){
     // Check if we need to handle cases dealing with implicit vs absolute path
 }
 
+
 void printDirectory(){
     /*
     This should print the current working directory.
@@ -44,6 +61,7 @@ void printDirectory(){
     getcwd(cwd, sizeof(cwd)); 
     printf("\nDir: %s \n", cwd);
 }
+
 
 int listFiles(){
   /*
@@ -68,6 +86,7 @@ int listFiles(){
   return 0;
 }
 
+
 int makeDirectory(char* arg){
   /*
   Make a directory with the name given as an arg, if no name given or other error present, return -1, else return 0
@@ -84,6 +103,7 @@ int makeDirectory(char* arg){
     return -1;
 }
 
+
 int removeObjects(char* arg){
   /*
   Should remove objects that are passed in
@@ -97,20 +117,13 @@ int removeObjects(char* arg){
   
 }
 
+
 int man(char* arg){
    /*
    Displays fun information about us for each command!
    */
-  char *command_list[NUM_COMMANDS];
   int switch_arg = 0, i;
 
-  command_list[0] = "cd";
-  command_list[1] = "pwd";
-  command_list[2] = "ls";
-  command_list[3] = "mkdir";
-  command_list[4] = "rm";
-  command_list[5] = "man";
- 
   // find which command in command_list cmd equals to
   for (i = 0 ;i < NUM_COMMANDS; i++) {
     if (strcmp(arg, command_list[i]) == 0) {
@@ -156,6 +169,7 @@ int man(char* arg){
 
 }
 
+
 char* readInput(){
     /*
     Should read the input from the user and put in into a dynamically allocated buffer, which will then be parsed
@@ -189,6 +203,7 @@ char* readInput(){
         }
     }
 }
+
 
 char** parseInput() {
     /*
@@ -281,16 +296,10 @@ char **lsh_split_line(char *line) {
   }
 }
 
-int cmd_handler(char **input) {
-  char *command_list[NUM_COMMANDS];
-  int switch_arg = 0, i;
 
-  command_list[0] = "cd";
-  command_list[1] = "pwd";
-  command_list[2] = "ls";
-  command_list[3] = "mkdir";
-  command_list[4] = "rm";
-  command_list[5] = "man";
+int cmd_handler(char **input) {
+/* Execute different functions depending on the command received */
+  int switch_arg = 0, i;
 
   // find which command in command_list cmd equals to
   for (i = 0 ;i < NUM_COMMANDS; i++) {
@@ -302,7 +311,7 @@ int cmd_handler(char **input) {
   switch (switch_arg) {
     case 1:
       // cd
-      changeDirectory(input[1]); // need second argument here the function parameter has to be changed?
+      changeDirectory(input[1]);
       printf("cd \n");
       break;
     case 2:
@@ -343,6 +352,7 @@ int main(){
   int keep_running = 1;
 
   while (keep_running) {
+    printf(">>> ");
     char *input = readInput();
     char **out = lsh_split_line(input);
     // printf("INPUT: %s \n", *out);
