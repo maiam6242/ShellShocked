@@ -8,13 +8,9 @@
 
 
 #define LSH_TOK_BUFSIZE 64
-// delimiter: tab, carriage return, end of line, system bell
-#define LSH_TOK_DELIM " \t\r\n\a"
+#define LSH_TOK_DELIM " \t\r\n\a" // delimiter: tab, carriage return, end of line, system bell
 #define NUM_COMMANDS 6
 
-// void main(){
-    // Should initialize the shell and read, parse and execute for each functionality we hope to include
-// }
 
 int changeDirectory(char* arg){
     /* 
@@ -22,7 +18,9 @@ int changeDirectory(char* arg){
     Args: either the directory that should be changed to or blank for home
     Returns: 0 if successful, -1 if not 
     */
-    if(arg == NULL){
+
+    // check for CTRL-D
+    if (arg == NULL){
       perror("Args are null! Can't change directory");
       return -1;
     }
@@ -122,17 +120,21 @@ int man(char* arg){
   
   switch (switch_arg) {
     case 1: 
-      // cd
+      // cd 
+      // maia
       printf(" blahblahblahblahblha \n");
       break;
     case 2:
       // pwd
+      // maia
       printf(" \n");
       break;
     case 3:
       // ls
+      // maia
       printf(" \n");
       break;
+    ////////// hk ///////////
     case 4:
       // mkdir
       printf("Hello Allen B Downey! Fancy meeting you here! \n If you are not Allen B Downey, still welcome! We like just the same (maybe...) ha! jkjk... unless... 🔥🔥🔥 \n");
@@ -337,41 +339,31 @@ struct Command {
 
 
 int main(){
-  int keep_running = 1;
   // Should initialize the shell and read, parse and execute for each functionality we hope to include
-    // for (int i = 0; i<4; i++) {
-    //   char *input = readInput();
-    //   char **out = lsh_split_line(input);
-    //   printf("INPUT: %s \n", *out);
-    //   printf("INPUT: %s \n", out[1]);
-    //   cmd_handler(out); // handle the command (input gives the first token which is the command)
+  int keep_running = 1;
 
-    while (keep_running) {
-      char *input = readInput();
-      char **out = lsh_split_line(input);
-      // printf("INPUT: %s \n", *out);
-      // printf("INPUT: %s \n", out[1]);
-      cmd_handler(out); // handle the command (input gives the first token which is the command)
-    
-    }
+  while (keep_running) {
+    char *input = readInput();
+    char **out = lsh_split_line(input);
+    // printf("INPUT: %s \n", *out);
+    // printf("INPUT: %s \n", out[1]);
+    cmd_handler(out); // handle the command (input gives the first token which is the command)
+  
+  }
 
-    puts("Stopped by signal `SIGINT'");
-    return EXIT_SUCCESS;
-    
+  puts("Stopped by signal `SIGINT'");
+  return EXIT_SUCCESS;
+  
 
+    //// TEST FOR PWD ////
+    // printDirectory(); 
 
-    // char* path = "/home";
-    // printf("--------PRINTDIR-------\n"); 
-    // printDirectory();
-    // printf("--------PRINTDIR-------\n"); 
-    // // char** path = "~/";
-
-    // printf("--------LISTFILES-------\n"); 
+    //// TEST FOR LS ////
     // listFiles();
-    // printf("--------LISTFILES-------\n"); 
-
 
     //// TEST FOR CD ///// seems like its working?
+    // char* path = "/home";  
+    // // char** path = "~/";
     // changeDirectory(path);
     // printDirectory();
     // listFiles();
