@@ -134,23 +134,20 @@ int man(char* arg){
   switch (switch_arg) {
     case 1: 
       // cd 
-      // maia
-      printf(" blahblahblahblahblha \n");
+      printf("🦸‍♀️🦸‍♀️🦸‍♀️🦹‍🦹‍♀️🦹‍♀️👮‍♀️👮‍👮‍♀️👷‍♀️👷‍♀️👷‍♀💂‍♀️💂‍♀️💂‍♀️🕵️‍🕵️‍♀️🕵️‍♀️️👩‍⚕️👩‍⚕️👩‍⚕️👩‍🌾👩‍🌾👩‍🌾👩‍🍳👩‍🍳👩‍🍳👩‍🎓👩‍🎓👩‍🎓👩‍🎤👩‍🎤👩‍🎤👩‍🏫👩‍🏫👩‍🏫👩‍🏭👩‍🏭👩‍🏭👩‍💻👩‍💻👩‍💻👩‍💼👩‍💼👩‍💼👩‍🔧👩‍🔧👩‍🔧👩‍🔬👩‍🔬👩‍🔬👩‍🎨👩‍🎨👩‍🎨👩‍🚒👩‍🚒👩‍🚒👩‍✈️👩‍✈️👩‍✈️👩‍🚀👩‍🚀👩‍🚀👩‍⚖️👩‍⚖️👩‍⚖️🧙‍♀️🧙‍♀️🧙‍♀️\n"); // ACK why are all the emojis White?!
       break;
     case 2:
       // pwd
-      // maia
-      printf(" \n");
+      printf("Fun fact! HK and Maia had a great time making this shell! We'd like to thank all of our adoring fans, our friends, families, zoom, VSCode live share and Allen B Downey. Without all of you, none of this would be possible. Thank you! \n");
       break;
     case 3:
       // ls
-      // maia
-      printf(" \n");
+      printf(" Tell me your deepest, darkest secret. \n Actually, please don't. The shell will be very confused and you'll be looking at your secrets in your terminal. Which, you know what, if that's what you want, then more power to ya!\n");
       break;
     ////////// hk ///////////
     case 4:
       // mkdir
-      printf("Hello Allen B Downey! Fancy meeting you here! \n If you are not Allen B Downey, still welcome! We like just the same (maybe...) ha! jkjk... unless... 🔥🔥🔥 \n");
+      printf("Hello Allen B Downey! Fancy meeting you here! \n If you are not Allen B Downey, still welcome! We like you just the same (maybe...) ha! jkjk... unless... 🔥🔥🔥 \n");
       printf("─▄██▄██▄\n");
       printf("─▀█████▀\n");
       printf("───▀█▀\n");
