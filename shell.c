@@ -19,13 +19,13 @@
 #define LSH_TOK_DELIM " \t\r\n\a" // delimiter: tab, carriage return, end of line, system bell
 #define NUM_COMMANDS 6
 
-char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
-command_list[0] = "cd";
-command_list[1] = "pwd";
-command_list[2] = "ls";
-command_list[3] = "mkdir";
-command_list[4] = "rm";
-command_list[5] = "man";
+// char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
+// command_list[0] = "cd";
+// command_list[1] = "pwd";
+// command_list[2] = "ls";
+// command_list[3] = "mkdir";
+// command_list[4] = "rm";
+// command_list[5] = "man";
 
 
 int changeDirectory(char* arg){
@@ -124,6 +124,14 @@ int man(char* arg){
    */
   int switch_arg = 0, i;
 
+  char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
+  command_list[0] = "cd";
+  command_list[1] = "pwd";
+  command_list[2] = "ls";
+  command_list[3] = "mkdir";
+  command_list[4] = "rm";
+  command_list[5] = "man";
+
   // find which command in command_list cmd equals to
   for (i = 0 ;i < NUM_COMMANDS; i++) {
     if (strcmp(arg, command_list[i]) == 0) {
@@ -147,20 +155,59 @@ int man(char* arg){
     ////////// hk ///////////
     case 4:
       // mkdir
-      printf("Hello Allen B Downey! Fancy meeting you here! \n If you are not Allen B Downey, still welcome! We like you just the same (maybe...) ha! jkjk... unless... 🔥🔥🔥 \n");
-      printf("─▄██▄██▄\n");
-      printf("─▀█████▀\n");
-      printf("───▀█▀\n");
-      printf("");
-      printf("");
+      printf("COMMAND NAME\n");
+      printf("mkdir – make directories\n");
+      printf("\n");
+
+      printf("SYNTAX\n");
+      printf("mkdir [directory name]\n");
+      printf("\n");
+
+      printf("DESCRIPTION\n");
+      printf("Create a new directory(ies) if the directory does not exist.\n");
+      printf("\n");
+
+      printf("FUN FACT\n");
+      printf("Why did Rapunzel get Corona?\n");
+      printf(".\n");
+      printf(".\n");
+      printf(".\n");
+      printf("Because the name of the 🏰kingdom🏰 is Corona. Haha\n");
       break;
     case 5:
       // rm
-      printf(" \n");
+      printf("COMMAND NAME\n");
+      printf("rm – remove files or directories\n");
+      printf("\n");
+
+      printf("SYNTAX\n");
+      printf("rm [file OR directory]\n");
+      printf("\n");
+
+      printf("DESCRIPTION\n");
+      printf("Remove file(s) or directory(ies) in the current path.\n");
+      printf("\n");
+
+      printf("FUN FACT\n");
+      printf("When Maia and HK tried to implement this the first time, they learned that rm only could delete files and not directories… (つ﹏<)･ﾟ｡ But they found out there was a function specific for removing directories in the dirent.h!\n");
+      printf("Lesson of the day: understand what is in the library you are using!\n");
       break;
     case 6:
       // man
-      printf("");
+      printf("COMMAND NAME");
+      printf("man - summons manual page");
+      printf("\n");
+
+      printf("SYNTAX");
+      printf("man [command name]");
+      printf("\n");
+
+      printf("DESCRIPTION");
+      printf("Displays manual about the input command. ");
+      printf("\n");
+
+      printf("FUN FACT");
+      printf("Maia came up with the brilliant idea of including fun facts in descriptions of each function.");
       break;
   }
 
@@ -297,6 +344,14 @@ char **lsh_split_line(char *line) {
 int cmd_handler(char **input) {
 /* Execute different functions depending on the command received */
   int switch_arg = 0, i;
+
+  char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
+  command_list[0] = "cd";
+  command_list[1] = "pwd";
+  command_list[2] = "ls";
+  command_list[3] = "mkdir";
+  command_list[4] = "rm";
+  command_list[5] = "man";
 
   // find which command in command_list cmd equals to
   for (i = 0 ;i < NUM_COMMANDS; i++) {
