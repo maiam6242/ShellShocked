@@ -7,6 +7,7 @@
   Professor: Allen Downey
 */
 
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,23 +24,25 @@
 int changeDirectory(char* arg){
     /* 
     Should move to home if no argument, if directory exists, go to that directory, else output an error. Use chdir to change directories
-    Args: either the directory that should be changed to or blank for home
+
+    arg: either the directory that should be changed to or blank for home
     Returns: 0 if successful, -1 if not 
     */
 
     // check for CTRL-D
     if (arg == NULL){
-      perror("Args are null! Can't change directory");
+      perror("Args are null! Can't change directory\n");
       return -1;
     }
     else if (chdir(arg)!= 0){
-      perror("Sorry some sort of error with cd");
+      perror("Sorry some sort of error with cd\n");
       return -1;
     }
-    else 
-      printf("%s \n", arg);
+    else {
+      // printf("%s \n", arg);
       chdir(arg);
       return 0;
+    }
 
     // Check if we need to handle cases dealing with implicit vs absolute path
 }
@@ -51,7 +54,7 @@ void printDirectory(){
     */
     char cwd[1024]; 
     getcwd(cwd, sizeof(cwd)); 
-    printf("\nDir: %s \n", cwd);
+    printf("Dir: %s \n", cwd);
 }
 
 
@@ -64,17 +67,14 @@ int listFiles(){
   struct dirent *dir;
   if (d == NULL) {
     return -1;
-    // d = opendir(".");
   }
 
-  // if (d) {
-    
     while(dir = readdir(d))
     {
       printf("%s\n", dir -> d_name);
     }
     closedir(d);
-  // }
+
   return 0;
 }
 
@@ -82,16 +82,18 @@ int listFiles(){
 int makeDirectory(char* arg){
   /*
   Make a directory with the name given as an arg, if no name given or other error present, return -1, else return 0
+
+  arg: pointer to character that stores the name of the directory
   */
 
   int failed = mkdir(arg);
 
   if(mkdir(arg, 0777) == -1){
-    printf("Worked!");
+    printf("Worked!\n");
     return 0;
   }
   else
-    perror("Couldn't create directory");
+    perror("Couldn't create directory\n");
     return -1;
 }
 
@@ -99,12 +101,14 @@ int makeDirectory(char* arg){
 int removeObjects(char* arg){
   /*
   Should remove objects that are passed in
+
+  arg: pointer to character that contains the name of the object to remove
   */
   if (remove(arg) == 0 || rmdir(arg)) {
-    printf("deleted successfully");
+    printf("Deleted successfully\n");
   }
   else {
-    printf("failure to delete");
+    printf("Failure to delete\n");
   }
   
 }
@@ -113,6 +117,8 @@ int removeObjects(char* arg){
 int man(char* arg){
    /*
    Displays fun information about us for each command!
+
+   arg: pointer to character that contains the command to display manual
    */
   int switch_arg = 0, i;
 
@@ -134,17 +140,52 @@ int man(char* arg){
   switch (switch_arg) {
     case 1: 
       // cd 
+      printf("COMMAND NAME\n");
+      printf("cd – change directory\n");
+      printf("\n");
+
+      printf("SYNTAX\n");
+      printf("cd [directory name]\n");
+      printf("\n");
+
+      printf("DESCRIPTION\n");
+      printf("Changes directory to the directory specified, or to home directory if no directory is specifie.\n");
+      printf("\n");
+
       printf("🦸‍♀️🦸‍♀️🦸‍♀️🦹‍🦹‍♀️🦹‍♀️👮‍♀️👮‍👮‍♀️👷‍♀️👷‍♀️👷‍♀💂‍♀️💂‍♀️💂‍♀️🕵️‍🕵️‍♀️🕵️‍♀️️👩‍⚕️👩‍⚕️👩‍⚕️👩‍🌾👩‍🌾👩‍🌾👩‍🍳👩‍🍳👩‍🍳👩‍🎓👩‍🎓👩‍🎓👩‍🎤👩‍🎤👩‍🎤👩‍🏫👩‍🏫👩‍🏫👩‍🏭👩‍🏭👩‍🏭👩‍💻👩‍💻👩‍💻👩‍💼👩‍💼👩‍💼👩‍🔧👩‍🔧👩‍🔧👩‍🔬👩‍🔬👩‍🔬👩‍🎨👩‍🎨👩‍🎨👩‍🚒👩‍🚒👩‍🚒👩‍✈️👩‍✈️👩‍✈️👩‍🚀👩‍🚀👩‍🚀👩‍⚖️👩‍⚖️👩‍⚖️🧙‍♀️🧙‍♀️🧙‍♀️\n"); // ACK why are all the emojis White?!
       break;
     case 2:
       // pwd
+      printf("COMMAND NAME\n");
+      printf("pwd – print working directory\n");
+      printf("\n");
+
+      printf("SYNTAX\n");
+      printf("pwd \n");
+      printf("\n");
+
+      printf("DESCRIPTION\n");
+      printf("Prints the directory which the user is currently in.\n");
+      printf("\n");
+
       printf("Fun fact! HK and Maia had a great time making this shell! We'd like to thank all of our adoring fans, our friends, families, zoom, VSCode live share and Allen B Downey. Without all of you, none of this would be possible. Thank you! \n");
       break;
     case 3:
       // ls
+      printf("COMMAND NAME\n");
+      printf("ls – list files in directory\n");
+      printf("\n");
+
+      printf("SYNTAX\n");
+      printf("ls [directory name]\n");
+      printf("\n");
+
+      printf("DESCRIPTION\n");
+      printf("List all files or directories in a given directory.\n");
+      printf("\n");
+
       printf(" Tell me your deepest, darkest secret. \n Actually, please don't. The shell will be very confused and you'll be looking at your secrets in your terminal. Which, you know what, if that's what you want, then more power to ya!\n");
       break;
-    ////////// hk ///////////
     case 4:
       // mkdir
       printf("COMMAND NAME\n");
@@ -241,16 +282,11 @@ char* readInput(){
 }
 
 
-char** parseInput() {
-    /*
-    Check the input against the command in the command table and any options
-    */
-
-
-}
 char **lsh_split_at_pipe(char *line) {
   /*
   Split given line into tokens with delimiter '|' 
+
+  line: pointer to character that stores the user input from terminal
   */
 
   int bufsize = LSH_TOK_BUFSIZE, position = 0;
@@ -276,19 +312,22 @@ char **lsh_split_at_pipe(char *line) {
       }
     }
 
-    printf("token: %s \n", token);
+    // printf("token: %s \n", token);
     token = strtok(NULL, "|");
   }
   tokens[position] = NULL;
   for(int i = 0; i < sizeof tokens / sizeof tokens[0]; i++){
-      printf("%s\n", tokens[i]);
+      // printf("%s\n", tokens[i]);
   }
   return tokens;
 }
 
+
 char **lsh_split_line(char *line) {
   /* 
   Split given line into tokens with delimiters LSH_TOK_DELIM
+
+  line: pointer to character that stores the user input from terminal
   */
 
   int bufsize = LSH_TOK_BUFSIZE, position = 0;
@@ -321,20 +360,23 @@ char **lsh_split_line(char *line) {
         }
       }
 
-      printf("token: %s \n", token);
+      // printf("token: %s \n", token);
       token = strtok(NULL, LSH_TOK_DELIM);
     }
     tokens[position] = NULL;
-    for (int i = 0; i < position; i++){
-        printf("tokens: %s \n", tokens[i]);
+   
     }
     return tokens;
-  }
 }
 
 
 int cmd_handler(char **input) {
-/* Execute different functions depending on the command received */
+/* 
+Execute different functions depending on the command received 
+
+input: pointer to pointer to character containing parsed user input
+*/
+
   int switch_arg = 0, i;
 
   char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
@@ -356,39 +398,29 @@ int cmd_handler(char **input) {
     case 1:
       // cd
       changeDirectory(input[1]);
-      printf("cd \n");
       break;
     case 2:
       // pwd
       printDirectory();
-      printf("pwd \n");
       break;
     case 3:
       // ls
       listFiles();
-      printf("ls \n");
       break;
     case 4:
       // mkdir
       makeDirectory(input[1]);
-      printf("mkdir \n");
       break;
     case 5:
       // rm
       removeObjects(input[1]);
-      printf("rm \n");
       break;
     case 6:
       // man
       man(input[1]);
-      printf("man \n");
       break;
   }
 }
-
-struct Command {
-    // 
-}Command;
 
 
 int main(){
@@ -399,36 +431,10 @@ int main(){
     printf(">>> ");
     char *input = readInput();
     char **out = lsh_split_line(input);
-    // printf("INPUT: %s \n", *out);
-    // printf("INPUT: %s \n", out[1]);
     cmd_handler(out); // handle the command (input gives the first token which is the command)
-  
+    printf("\n");
   }
 
   puts("Stopped by signal `SIGINT'");
   return EXIT_SUCCESS;
-  
-
-    //// TEST FOR PWD ////
-    // printDirectory(); 
-
-    //// TEST FOR LS ////
-    // listFiles();
-
-    //// TEST FOR CD ///// seems like its working?
-    // char* path = "/home";  
-    // // char** path = "~/";
-    // changeDirectory(path);
-    // printDirectory();
-    // listFiles();
-
-    //// TEST FOR MKDIR ////
-    // char* new_dir = "test_shell";
-    // makeDirectory(new_dir);
-    // listFiles();
-    
-    // lsh_split_at_pipe(input);
-    // printf("%s", input);
-    // char ln[] = "yoo | how's it | hangin?";
-    // lsh_split_at_pipe(input);
 }
