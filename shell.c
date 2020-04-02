@@ -19,14 +19,6 @@
 #define LSH_TOK_DELIM " \t\r\n\a" // delimiter: tab, carriage return, end of line, system bell
 #define NUM_COMMANDS 6
 
-// char *command_list[NUM_COMMANDS]; // store commands that our shell can deal with
-// command_list[0] = "cd";
-// command_list[1] = "pwd";
-// command_list[2] = "ls";
-// command_list[3] = "mkdir";
-// command_list[4] = "rm";
-// command_list[5] = "man";
-
 
 int changeDirectory(char* arg){
     /* 
@@ -168,11 +160,11 @@ int man(char* arg){
       printf("\n");
 
       printf("FUN FACT\n");
-      printf("Why did Rapunzel get Corona?\n");
+      printf("Why was Rapunzel stuck in a tower for all her life?\n");
       printf(".\n");
       printf(".\n");
       printf(".\n");
-      printf("Because the name of the 🏰kingdom🏰 is Corona. Haha\n");
+      printf("Because the name of the 🏰kingdom🏰 is Corona. She had to be quarantined haha\n");
       break;
     case 5:
       // rm
