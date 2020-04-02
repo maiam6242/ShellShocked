@@ -26,14 +26,35 @@ https://www.geeksforgeeks.org/making-linux-shell-c/
 ### What We've Done
 We completed a substantial amount of research about shells and implementing UNIX shells in C. Before directly diving into the coding part, we started by mapping out the process that a shell will undergo, which involved drawing several detailed diagrams of how the keyboard input will be passed into the shell and how the input would be organized to execute the desired commands. We have also written code to read and parse user inputs based on pipes and spaces. We also implemented commands like **cd**, **pwd**, **ls**, **mkdir**, **rm**, and **man**. We found a wide array of resources throughout the process which allowed us to more easily complete our project. 
 
-INCLUDE CODE SNIPPETS AND OUTPUTS
+
+Here is a sample of some of the outputs of our program:
+<img src="https://github.com/maiam6242/ShellShocked/blob/master/reports/ls_pwd_cd(original).png" alt="picture of the ls, cd and pwd commands in action!" >
+<img src= "https://github.com/maiam6242/ShellShocked/blob/master/reports/mkdir_and_rm.png" alt = "picture of the mkdir, ls and rm commands in action!">
+<img src= "https://github.com/maiam6242/ShellShocked/blob/master/reports/man.png" alt = "picture of the man command in action!">
+
+In addition, we wanted to use our main function code to explain in more detail the way in which our shell works. 
+
+```C
+    while (keep_running) {
+      printf(">>> ");
+      char *input = readInput();
+      char **out = lsh_split_line(input);
+      cmd_handler(out); // handle the command (input gives the first token which is the command)
+      printf("\n");
+  }
+```
+Essentially, unless there is a signal to stop, our shell executes the loop above. It first reads the input, then splits it by commands based on the locations of spaces and pipes, then sends that to the command handler which processes and executes each command which it is given.  
 
 ### Design Decision We Made
 The most important design decision we made was figuring out how to best parse inputs. We could have parsed things in any number of ways, but decided to parse the line for a variety of characters such as new line characters and tab characters. We parse the entire line (and look for pipes) in one operation, and then process them, as opposed to stopping as soon as we see a command. This allows us to only need to parse the input once, as opposed to needing to return to it multiple times. 
 
-<> INSERT PROCESS PICTURE HERE!
+<img src="https://github.com/maiam6242/ShellShocked/blob/master/reports/parse_process.jpg" alt="picture of our process">
 
-Above, we have included our brainstorming for the best way to parse and split text, which matches our implementation. This is, again, as opposed to reading and parsing a line multiple times and stopping each time a command is reached.
+Above, we have included our brainstorming for the best way to parse and split text, which matches our implementation. This is, again, as opposed to reading and parsing a line multiple times and stopping each time a command is reached. With more time, we wished we would have been able to fully implement pipes, while we are able to read them and understand that they are not commands, we weren't able to implement the behavior around input and output and having things "pipe" to one another. 
+
+### Breakthrough
+During the process of implementing some of the commands, we were confused with our mental model of how our shell should function. This confusion rose after we observed the output of the implementation of mkdir and cd. Before getting deeper into explaining our breakthrough, we would like to specify these two terms that will be used frequently: the inner shell as the shell that is made/ran by the code that we worked for this project, and the outer shell that runs the code that we worked for this project.
+We noticed that when mkdir was called, a new directory with the given name was made both within the inner shell and the outer shell; however, when cd was called, we could only change the path within the inner shell and the change was not transferred to the outer shell. This behavior confused our understanding and expected behavior of the shell, but with help, we learned that the outer shell is a parent process to the inner shell, because the outer shell creates the process that runs the inner shell. If the inner shell tried to modify the outer shell (aka the parent process), we would have encountered surprising results. However, commands like mkdir modified the file system itself and not the parent process, 
 
 ### More Code!
 
@@ -63,7 +84,7 @@ This is a code snippet from our ls command. Essentially, what it does is assigns
 ### Reflection
 
 //TODO: THIS!
-Maia: I think that I achieved my learning goals for this project. I came in hoping to get a better understanding of C and how to use it 
+Maia: I think that I achieved my learning goals for this project. I came in hoping to get a better understanding of C and how to use it, and I think that I accomplished that pretty well. 
 
 ### GitHub and Trello
 GitHub: https://github.com/maiam6242/ShellShocked
